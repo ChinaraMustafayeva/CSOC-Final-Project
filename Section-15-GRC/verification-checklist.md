@@ -1,174 +1,412 @@
-# BÖLMƏ 2 — TEXNİKİ YOXLAMA SİYAHISI
+# Section 15 — GRC Verification Checklist
+## KONRDERK Cybersecurity — Governance, Risk & Compliance
 
-## Məqsəd
+**Project:** CSOC Final Project  
+**Section:** 15 — Governance, Risk & Compliance  
+**Organization:** KONRDERK Cybersecurity  
+**Verification Scope:** Security Policies, Risk Register, Compliance Assessment  
+**Overall Compliance Result:** PARTIALLY COMPLIANT
 
-Bu sənəd CSOC layihəsinin Bölmə 2 — Enterprise Identity & Access Management hissəsində həyata keçirilmiş texniki işlərin və praktiki testlərin yekun yoxlama siyahısıdır.
+---
 
-Yoxlamalar layihənin yekun hesabatında sənədləşdirilmiş nəticələr əsasında hazırlanmışdır.
+## 1. Məqsəd və yoxlama meyarları
 
-## 2.1 — Active Directory və Tiered Access
+Bu sənəd CSOC Final Project çərçivəsində Bölmə 15 — Governance, Risk & Compliance (GRC) üzrə hazırlanmış materialların yoxlama siyahısıdır.
 
-- [x] DC01 serverində Active Directory Domain Services infrastrukturu quruldu.
-- [x] DC02 ikinci Domain Controller kimi konfiqurasiya edildi.
-- [x] DC01 və DC02 arasında Active Directory replikasiyası təşkil edildi.
-- [x] corp.local domeni üçün istifadəçi və administrator hesabları idarə edildi.
-- [x] Organizational Unit strukturu yaradıldı.
-- [x] Tier 0, Tier 1 və Tier 2 inzibati səviyyələri tətbiq edildi.
-- [x] SRV01 Tier 1 üzv serveri kimi istifadə edildi.
-- [x] Group Policy vasitəsilə səviyyələrarası giriş məhdudiyyətləri tətbiq edildi.
-- [x] Tier 2 hesabının SRV01-ə giriş cəhdi bloklandı.
-- [x] Windows giriş xətası yoxlanıldı: The sign-in method you're trying to use isn't allowed.
-- [x] GPO-T0-Audit siyasəti yaradıldı.
+Layihə hesabatında GRC bölməsi üç əsas tapşırıqdan ibarətdir:
 
-## 2.2 — Privileged Access Management
+1. **15.1 — Siyasət Kitabxanası:** Altı informasiya təhlükəsizliyi siyasətinin hazırlanması.
+2. **15.2 — Risk Register:** Ən azı 20 riskin müəyyənləşdirilməsi, qiymətləndirilməsi və azaltma tədbirlərinin planlaşdırılması.
+3. **15.3 — Compliance Assessment:** Standartlara uyğunluğun qiymətləndirilməsi, Gap Analysis, uyğunluq hesabatı və fərdi məlumatların emalı prosedurları.
 
-- [x] PAM01 serveri hazırlandı.
-- [x] JumpServer platforması quraşdırıldı.
-- [x] DC01 serveri PAM idarəetməsinə əlavə edildi.
-- [x] Administrator giriş icazələri konfiqurasiya edildi.
-- [x] DC01-ə RDP bağlantısı PAM01 üzərindən təşkil edildi.
-- [x] RDP TCP/3389 trafiki PAM01 mənbə IP ünvanı ilə məhdudlaşdırıldı.
-- [x] JumpServer üzərindən DC01-ə RDP bağlantısı uğurla yoxlanıldı.
-- [x] Administrator sessiyalarının video replay qeydləri yoxlanıldı.
-- [x] Sessiya əmrlərinin audit qeydləri yoxlanıldı.
-- [x] GPO-PAM-RDP-Session-Limits siyasəti yaradıldı.
-- [x] RDP idle timeout 15 dəqiqə təyin edildi.
-- [x] Aktiv RDP sessiyasının maksimum müddəti 1 saat təyin edildi.
+Yoxlama iki fərqli anlayışı ayırır:
 
-### PAM test parametrləri
+- **Documentation completed:** Sənədin layihə çərçivəsində hazırlanması.
+- **Technical compliance verified:** Nəzarətin tətbiqinin və effektivliyinin texniki sübutlarla təsdiqlənməsi.
 
-| Parametr | Dəyər |
-|---|---|
-| PAM serveri | PAM01 |
-| PAM IP | 192.168.100.30 |
-| İdarə olunan server | DC01 |
-| DC01 IP | 192.168.100.10 |
-| İdarəetmə protokolu | RDP / TCP 3389 |
-| Idle timeout | 15 dəqiqə |
-| Aktiv sessiya limiti | 1 saat |
+Sənədin hazırlanması bütün texniki və təşkilati tələblərin tam icra edildiyini göstərmir.
 
-## 2.3 — Keycloak, SSO və MFA
+### Status işarələri
 
-### IAM platforması
+- [x] — Layihə hesabatında hazırlanmış və ya qiymətləndirilmişdir.
+- [ ] — Əlavə yoxlama, təsdiq və ya düzəldici tədbir tələb edir.
 
-- [x] IAM01 Ubuntu Server 24.04 hazırlandı.
-- [x] Keycloak 26.4 Docker Compose ilə quraşdırıldı.
-- [x] PostgreSQL 17 verilənlər bazası quraşdırıldı.
-- [x] corp realm yaradıldı.
-- [x] CORP-AD LDAP Federation konfiqurasiya edildi.
-- [x] DC01 ilə LDAPS TCP/636 bağlantısı yaradıldı.
-- [x] svc_keycloak_ldap servis hesabı istifadə edildi.
-- [x] Servis hesabına Domain Admin səlahiyyəti verilmədi.
-- [x] LDAP Test connection uğurla yoxlanıldı.
-- [x] LDAP Test authentication uğurla yoxlanıldı.
+---
 
-### İstifadəçi sinxronizasiyası
+## 2. Bölmə 15.1 — Security Policy Library
 
-- [x] Active Directory-dən 16 istifadəçi Keycloak-a sinxronlaşdırıldı.
-- [x] Sinxronizasiya nəticəsində 0 xəta qeydə alındı.
-- [x] Full Sync intervalı 24 saat konfiqurasiya edildi.
-- [x] Changed Users Sync intervalı 5 dəqiqə konfiqurasiya edildi.
-- [x] t2-aysel domen hesabı ilə autentifikasiya yoxlanıldı.
+### 2.1. Altı təhlükəsizlik siyasətinin mövcudluğu
 
-### MFA
+- [x] Information Security Policy hazırlanıb.
+- [x] Acceptable Use Policy hazırlanıb.
+- [x] Incident Response Policy hazırlanıb.
+- [x] Remote Access Policy hazırlanıb.
+- [x] Data Classification Policy hazırlanıb.
+- [x] Password Management Policy hazırlanıb.
 
-- [x] Configure OTP Required Action aktivləşdirildi.
-- [x] Recovery Authentication Codes aktivləşdirildi.
-- [x] Tier 0, Tier 1 və Tier 2 administrator hesabları üçün MFA konfiqurasiya edildi.
-- [x] Google Authenticator vasitəsilə OTP quruldu.
-- [x] Altırəqəmli OTP ilə uğurlu giriş yoxlanıldı.
-- [x] Ehtiyat bərpa kodları yaradıldı.
+### 2.2. Sənəd identifikatorları
 
-### HTTPS
+| № | Siyasət | Document ID | Sənədləşmə |
+|---|---|---|---|
+| 1 | Information Security Policy | KON-GRC-POL-001 | Hazırlanıb |
+| 2 | Acceptable Use Policy | KON-GRC-POL-002 | Hazırlanıb |
+| 3 | Incident Response Policy | KON-GRC-POL-003 | Hazırlanıb |
+| 4 | Remote Access Policy | KON-GRC-POL-004 | Hazırlanıb |
+| 5 | Data Classification Policy | KON-GRC-POL-005 | Hazırlanıb |
+| 6 | Password Management Policy | KON-GRC-POL-006 | Hazırlanıb |
 
-- [x] iam01.corp.local DNS qeydi yaradıldı.
-- [x] CA01 üzərində daxili sertifikat alındı.
-- [x] Sertifikat Keycloak konteynerinə əlavə edildi.
-- [x] HTTPS TCP/8443 konfiqurasiya edildi.
-- [x] https://iam01.corp.local:8443 ünvanına giriş yoxlanıldı.
+### 2.3. Siyasət məzmununun yoxlanılması
 
-### Dörd platformanın SSO inteqrasiyası
+- [x] İnformasiya aktivlərinin məxfiliyi, bütövlüyü və əlçatanlığı təsvir edilib.
+- [x] Least Privilege və RBAC prinsipləri göstərilib.
+- [x] Active Directory, Keycloak SSO/MFA və JumpServer PAM nəzarətləri sənədləşdirilib.
+- [x] Şəbəkə təhlükəsizliyi üçün Firewall, Suricata və DNS Sinkhole qeyd edilib.
+- [x] Korporativ cihaz və hesabların məqbul istifadəsi qaydaları müəyyən edilib.
+- [x] USBGuard və icazəsiz proqram istifadəsi üzrə məhdudiyyətlər təsvir edilib.
+- [x] Incident Response rolları və reaksiya mərhələləri müəyyən edilib.
+- [x] Uzaqdan giriş, RDP/SSH və imtiyazlı sessiya tələbləri göstərilib.
+- [x] Məlumatların Public, Internal, Confidential və Restricted təsnifatı hazırlanıb.
+- [x] Adi istifadəçilər üçün minimum 12 simvol parol tələbi göstərilib.
+- [x] Administratorlar üçün minimum 16 simvol parol tələbi göstərilib.
+- [x] SRV01 üzərində Windows LAPS və 30 günlük rotasiya tələbi sənədləşdirilib.
 
-- [x] Grafana Keycloak SSO ilə inteqrasiya edildi.
-- [x] Grafana üçün OAuth client və redirect URI parametrləri konfiqurasiya edildi.
-- [x] t2-aysel hesabı ilə Grafana SSO girişi uğurla yoxlanıldı.
-- [x] Gitea Keycloak ilə inteqrasiya edildi.
-- [x] t2-aysel hesabı ilə Gitea-ya uğurlu giriş edildi.
-- [x] Wiki.js Keycloak SSO ilə inteqrasiya edildi.
-- [x] Wiki.js üçün istifadəçi qrupu və OTP tələbi yoxlanıldı.
-- [x] Nextcloud Keycloak SSO ilə inteqrasiya edildi və test edildi.
+### 2.4. Təsdiq və dövri baxış
 
-| Platforma | Ünvan |
-|---|---|
-| Grafana | http://10.0.0.50:3000 |
-| Gitea | http://10.0.0.50:3001 |
-| Wiki.js | http://10.0.0.50:3002 |
-| Nextcloud | http://10.0.0.50:3003 |
+- [x] Siyasətlərdə Version 1.0 göstərilib.
+- [x] Internal təsnifatı göstərilib.
+- [x] Information Security Manager sənəd sahibi kimi müəyyən edilib.
+- [x] İllik baxış tələbi müəyyən edilib.
+- [x] Information Security Manager və CEO üçün təsdiq sahələri yaradılıb.
+- [ ] Siyasətlərin faktiki imzalanması və təsdiq tarixləri ayrıca qeydə alınmalıdır.
+- [ ] Policy approval register hazırlanmalı və illik baxış qeydləri saxlanmalıdır.
 
-**Yekun:** Dörd fərqli platformanın mərkəzi IAM sistemi ilə SSO inteqrasiyası həyata keçirildi.
+**Əlaqəli Gap:** G-10 — Medium.
 
-## 2.4 — Windows LAPS və PKI
+### 2.5. Nəticə
 
-### Certificate Authority
+**Sənədləşmə:** Tamamlanıb.
 
-- [x] CA01 Windows Server 2022 hazırlandı.
-- [x] CA01 corp.local domeninə qoşuldu.
-- [x] Active Directory Certificate Services quraşdırıldı.
-- [x] Enterprise Root CA konfiqurasiya edildi.
-- [x] CORP-ROOT-CA yaradıldı.
-- [x] Root CA üçün RSA 4096 bit və SHA256 istifadə edildi.
-- [x] CA etibarlılıq müddəti 10 il təyin edildi.
+**Rəsmi təsdiq qeydləri:** Əlavə tədbir tələb edir.
 
-### Sertifikat şablonları və HTTPS
+**GitHub faylı:** [security-policies.md](security-policies.md)
 
-- [x] CORP-WebServer sertifikat şablonu yaradıldı.
-- [x] Sertifikat müddəti 1 il təyin edildi.
-- [x] Renewal Period 6 həftə təyin edildi.
-- [x] RSA 2048 bit açar parametri seçildi.
-- [x] Private Key Export deaktiv edildi.
-- [x] Domain Computers üçün Read, Enroll və Autoenroll icazələri verildi.
-- [x] Şablon CA üzərində yayımlandı.
-- [x] Certificate Auto-Enrollment Group Policy vasitəsilə konfiqurasiya edildi.
-- [x] SRV01 üçün daxili CA tərəfindən imzalanmış sertifikat alındı.
-- [x] SRV01 üzərində IIS HTTPS TCP/443 konfiqurasiya edildi.
-- [x] https://srv01.corp.local ünvanı sertifikat xəbərdarlığı olmadan açıldı.
+---
 
-### Windows LAPS
+## 3. Bölmə 15.2 — Risk Register
 
-- [x] SRV01 Tier1 Servers OU daxilində yerləşdirildi.
-- [x] Windows LAPS üçün Active Directory icazələri konfiqurasiya edildi.
-- [x] GPO-Windows-LAPS-Tier1-Servers siyasəti yaradıldı.
-- [x] Backup Directory olaraq Active Directory seçildi.
-- [x] Parol uzunluğu 16 simvol təyin edildi.
-- [x] Parol mürəkkəbliyi konfiqurasiya edildi.
-- [x] Password Age 30 gün təyin edildi.
-- [x] SRV01 üzərində KB5025230 yeniləməsi quraşdırıldı.
-- [x] Windows LAPS modulunun mövcudluğu yoxlanıldı.
-- [x] gpupdate /force icra edildi.
-- [x] Reset-LapsPassword vasitəsilə parol rotasiyası başladıldı.
-- [x] Get-LapsADPassword vasitəsilə AD-də parolun yenilənmə vaxtı yoxlanıldı.
-- [x] Parolun 30 gün sonrakı bitmə tarixi yoxlanıldı.
-- [x] gpresult /r /scope computer ilə GPO tətbiqi təsdiqləndi.
+### 3.1. Risk reyestrinin hazırlanması
 
-## Yekun nəticələr
+- [x] Risk Register sənədi hazırlanıb.
+- [x] KON-GRC-RSK-001 sənəd identifikatoru müəyyən edilib.
+- [x] 20 informasiya təhlükəsizliyi riski qeydiyyata alınıb.
+- [x] Risklər R-01-dən R-20-yə qədər identifikatorlarla göstərilib.
+- [x] Risk sahibləri müəyyən edilib.
+- [x] Azaltma tədbirləri sənədləşdirilib.
+- [x] İlkin və hədəf residual risklər göstərilib.
 
-| Alt bölmə | Əsas texnologiyalar | Praktiki nəticə |
+### 3.2. Qiymətləndirmə metodologiyası
+
+- [x] Likelihood 1–5 şkalası ilə qiymətləndirilib.
+- [x] Impact 1–5 şkalası ilə qiymətləndirilib.
+- [x] Risk Score = Likelihood × Impact düsturu tətbiq edilib.
+- [x] Low, Medium, High və Critical səviyyələri müəyyən edilib.
+- [x] Residual Risk hesablamaları göstərilib.
+
+### 3.3. Risklərin əhatə dairəsi
+
+- [x] Active Directory və domen komprometasiyası riskləri.
+- [x] Privileged account və MFA riskləri.
+- [x] Keycloak və PKI riskləri.
+- [x] Firewall və şəbəkə segmentasiyası riskləri.
+- [x] Suricata və DNS təhlükəsizliyi riskləri.
+- [x] PostgreSQL və məlumat sızması riskləri.
+- [x] Backup və bərpa riskləri.
+- [x] Gitea və Nextcloud riskləri.
+- [x] Phishing və istifadəçi hesabları riskləri.
+- [x] VMware platforması riskləri.
+- [x] USB təhlükəsizliyi riskləri.
+- [x] PAM loglarının saxlanılması riskləri.
+- [x] Patch management və zəiflik riskləri.
+- [x] İnsidentə gec reaksiya riski.
+
+### 3.4. Risk prioritetlərinin yoxlanılması
+
+- [x] R-03 — Privileged hesabın ələ keçirilməsi ən yüksək ilkin risk kimi göstərilib.
+- [x] Critical risklər üçün dərhal eskalasiya tələbi müəyyən edilib.
+- [x] High risklər üçün prioritet tədbirlər planı nəzərdə tutulub.
+- [x] Medium və Low risklər üçün planlı monitorinq müəyyən edilib.
+
+### 3.5. Risklərin idarə edilməsi
+
+- [x] Mitigate yanaşması sənədləşdirilib.
+- [x] Avoid yanaşması sənədləşdirilib.
+- [x] Transfer yanaşması sənədləşdirilib.
+- [x] Accept yanaşması sənədləşdirilib.
+- [x] Risk Register üçün aylıq baxış tələbi müəyyən edilib.
+- [x] Information Security Manager məsul şəxs kimi göstərilib.
+- [ ] Hədəf residual risklər faktiki nəzarət nəticələri ilə yenidən təsdiqlənməlidir.
+- [ ] Düzəldici tədbirlərin icrası üzrə aylıq baxış qeydləri saxlanmalıdır.
+
+### 3.6. Nəticə
+
+**Risklərin müəyyənləşdirilməsi və sənədləşdirilməsi:** Tamamlanıb.
+
+**Residual risklərin faktiki təsdiqi və davamlı izlənməsi:** Əlavə yoxlama tələb edir.
+
+**GitHub faylı:** [risk-register.md](risk-register.md)
+
+---
+
+## 4. Bölmə 15.3 — Compliance Assessment
+
+### 4.1. Beynəlxalq standartlar
+
+- [x] ISO/IEC 27001:2022 üzrə qiymətləndirmə hazırlanıb.
+- [x] NIST Cybersecurity Framework 2.0 üzrə qiymətləndirmə hazırlanıb.
+- [x] CIS Controls v8.1 üzrə qiymətləndirmə hazırlanıb.
+- [x] Implemented və Partial statusları müəyyən edilib.
+- [x] İnfrastruktur sübutları nəzarətlərlə əlaqələndirilib.
+- [x] Qiymətləndirmənin daxili uyğunluq analizi olduğu qeyd edilib.
+
+### 4.2. ISO/IEC 27001:2022 nəzarətləri
+
+| Control | Assessment | Yoxlama |
 |---|---|---|
-| 2.1 | AD DS, GPO, Tiered Access | Domen infrastrukturu və giriş məhdudiyyətləri |
-| 2.2 | JumpServer, RDP, Session Audit | Mərkəzləşdirilmiş administrator girişi və sessiya nəzarəti |
-| 2.3 | Keycloak, PostgreSQL, LDAPS, MFA | 16 istifadəçi, 4 SSO platforması, OTP və HTTPS |
-| 2.4 | AD CS, IIS, Windows LAPS | Daxili CA, etibarlı HTTPS, 16 simvolluq parol və 30 günlük rotasiya |
+| A.5.15 — Access Control | Implemented | [x] |
+| A.5.17 — Authentication Information | Implemented | [x] |
+| A.8.2 — Privileged Access Rights | Implemented | [x] |
+| A.8.13 — Information Backup | Partial | [x] |
+| A.8.15 — Logging | Partial | [x] |
+| A.8.20 — Network Security | Implemented | [x] |
 
-## Əlaqəli sənədlər
+Buradakı işarələr nəzarətlərin qiymətləndirmədə əks olunduğunu göstərir; Partial nəzarətlərin tam uyğunluğunu bildirmir.
 
-- [Bölmə 2 — Ümumi README](README.md)
-- [Active Directory və Tiered Access](active-directory.md)
-- [Privileged Access Management](privileged-access-management.md)
-- [Keycloak, SSO və MFA](sso-mfa.md)
-- [Windows LAPS və PKI](laps-pki.md)
+### 4.3. NIST CSF 2.0 funksiyaları
 
-## Nəticə
+| Function | Assessment | Yoxlama |
+|---|---|---|
+| Govern | Partial | [x] |
+| Identify | Partial | [x] |
+| Protect | Implemented | [x] |
+| Detect | Partial | [x] |
+| Respond | Partial | [x] |
+| Recover | Partial | [x] |
 
-Bölmə 2 üzrə korporativ kimlik və giriş idarəetməsi, imtiyazlı administrator sessiyaları, çoxfaktorlu autentifikasiya, dörd tətbiqin SSO inteqrasiyası, daxili sertifikat infrastrukturu və lokal administrator parollarının rotasiyası həyata keçirilmişdir.
+### 4.4. CIS Controls v8.1
 
-Bu yoxlama siyahısı yekun layihə hesabatında sənədləşdirilmiş konfiqurasiyaları və praktiki nəticələri bir yerdə təqdim edir.
+| Control | Assessment | Yoxlama |
+|---|---|---|
+| Controls 5–6 — Account and Access Management | Implemented | [x] |
+| Control 8 — Audit Log Management | Partial | [x] |
+| Control 11 — Data Recovery | Partial | [x] |
+| Controls 12–13 — Network Infrastructure and Monitoring | Partial | [x] |
+| Control 17 — Incident Response Management | Partial | [x] |
+
+### 4.5. Gap Analysis
+
+- [x] 10 uyğunluq boşluğu müəyyən edilib.
+- [x] Hər boşluğa Gap ID verilib.
+- [x] Hər boşluğun prioriteti göstərilib.
+- [x] Düzəldici tədbirlər müəyyən edilib.
+- [x] Risk sahibləri göstərilib.
+- [x] 5 High və 5 Medium prioritetli boşluq qeyd edilib.
+
+### 4.6. High Priority — Düzəldici tədbirlər
+
+- [ ] **G-01:** PAM loglarının SIEM-ə inteqrasiyası tamamlanmalı və təsdiqlənməlidir.
+  - Owner: SOC Lead
+  - Corrective Action: Mərkəzləşdirilmiş log inteqrasiyası.
+
+- [ ] **G-02:** Backup restore testləri aparılmalı və nəticələri təsdiqlənməlidir.
+  - Owner: System Admin
+  - Corrective Action: Planlı bərpa sınaqları.
+
+- [ ] **G-03:** P2-Backup serverində backup job və storage vəziyyəti yoxlanılmalıdır.
+  - Owner: System Admin
+  - Corrective Action: Backup job və storage yoxlaması.
+
+- [ ] **G-05:** Incident Response prosedurları tabletop və IR drill vasitəsilə sınaqdan keçirilməlidir.
+  - Owner: SOC Lead
+  - Corrective Action: Tabletop və IR drill.
+
+- [ ] **G-06:** SIEM üzrə log source inventory və coverage testi tamamlanmalıdır.
+  - Owner: SOC Lead
+  - Corrective Action: Log source inventory və coverage testi.
+
+### 4.7. Medium Priority — Düzəldici tədbirlər
+
+- [ ] **G-04:** PAM session timeout mexanizmi test edilməlidir.
+  - Owner: Security Engineer
+  - Corrective Action: Session timeout testi.
+
+- [ ] **G-07:** Zəifliklərin idarə edilməsi üzrə vahid hesabat hazırlanmalıdır.
+  - Owner: Security Engineer
+  - Corrective Action: Periodik vulnerability assessment.
+
+- [ ] **G-08:** Backup retention və RPO/RTO tələbləri sənədləşdirilməlidir.
+  - Owner: System Admin
+  - Corrective Action: Retention, RPO/RTO planı.
+
+- [ ] **G-09:** Fərdi məlumatların emalı reyestri hazırlanmalıdır.
+  - Owner: GRC Lead
+  - Corrective Action: Data processing register.
+
+- [ ] **G-10:** Siyasətlərin təsdiq və illik baxış qeydləri saxlanmalıdır.
+  - Owner: GRC Lead
+  - Corrective Action: Policy approval register.
+
+**Qeyd:** Yuxarıdakı boş xanalar hesabatda müəyyən edilmiş açıq uyğunluq məsələlərini göstərir. Bu, əsas texniki komponentlərin ümumiyyətlə qurulmadığı mənasına gəlmir.
+
+---
+
+## 5. Personal Data Protection — Fərdi Məlumatların Qorunması
+
+### 5.1. Hüquqi əsasların sənədləşdirilməsi
+
+- [x] Azərbaycan Respublikasının “Fərdi məlumatlar haqqında” Qanunu nəzərə alınıb.
+- [x] Tətbiq olunduğu hallarda GDPR tələbləri qeyd edilib.
+
+### 5.2. Səkkiz məlumat emalı proseduru
+
+- [x] Purpose Limitation — məqsədin məhdudlaşdırılması.
+- [x] Data Minimization — minimum zəruri məlumatın toplanması.
+- [x] Lawful Processing — qanuni emal.
+- [x] Access Control — RBAC və Least Privilege.
+- [x] Secure Storage — təhlükəsiz saxlanma və şifrəli ötürülmə.
+- [x] Retention and Deletion — saxlanma müddəti və təhlükəsiz silinmə.
+- [x] Data Subject Rights — çıxış, düzəliş və silinmə hüquqları.
+- [x] Breach Management — məlumat sızmasının idarə edilməsi.
+
+### 5.3. Əlavə təsdiq
+
+- [ ] Data processing register tamamlanmalıdır.
+- [ ] Məlumatların saxlanma və silinmə müddətləri müvafiq qeydlərlə təsdiqlənməlidir.
+
+**Əlaqəli Gap:** G-09.
+
+---
+
+## 6. Compliance Report — Ümumi Qiymətləndirmə
+
+Layihə hesabatındakı yekun qiymətləndirmə:
+
+| Assessment Area | Result |
+|---|---|
+| Identity and Access Management | Implemented |
+| Privileged Access Management | Partially Compliant |
+| Network Security | Implemented |
+| Security Monitoring and Logging | Partially Compliant |
+| Backup and Recovery | Partially Compliant |
+| Incident Response | Partially Compliant |
+| Risk Management | Partially Compliant |
+| Personal Data Governance | Partially Compliant |
+
+### Overall Assessment
+
+**PARTIALLY COMPLIANT**
+
+Bu nəticə aşağıdakı vəziyyəti əks etdirir:
+
+- Əsas təhlükəsizlik komponentlərinin bir hissəsi tətbiq edilib.
+- Altı siyasət sənədləşdirilib.
+- 20 risk müəyyənləşdirilib və qiymətləndirilib.
+- Üç beynəlxalq çərçivə üzrə uyğunluq analizi hazırlanıb.
+- 10 uyğunluq boşluğu sənədləşdirilib.
+- Bəzi nəzarətlərin effektivliyi və tamamlanması əlavə təsdiq tələb edir.
+
+Bu qiymətləndirmə ISO/IEC 27001 sertifikatlaşdırılması deyil.
+
+---
+
+## 7. GitHub Documentation Verification
+
+### 7.1. Repository strukturu
+
+Section-15-GRC/
+- README.md
+- security-policies.md
+- risk-register.md
+- compliance-assessment.md
+- verification-checklist.md
+
+### 7.2. Faylların funksiyası
+
+| File | Purpose |
+|---|---|
+| README.md | GRC bölməsinin ümumi təsviri |
+| security-policies.md | Altı təhlükəsizlik siyasəti |
+| risk-register.md | 20 risk, qiymətləndirmə və azaltma tədbirləri |
+| compliance-assessment.md | ISO, NIST, CIS, Gap Analysis və fərdi məlumat prosedurları |
+| verification-checklist.md | Bölmə 15 üzrə yekun yoxlama siyahısı |
+
+### 7.3. Sənədləşmə yoxlaması
+
+- [x] Altı təhlükəsizlik siyasətinin məzmunu hazırlanıb.
+- [x] 20 riskin qiymətləndirilməsi sənədləşdirilib.
+- [x] Üç standart üzrə uyğunluq qiymətləndirməsi hazırlanıb.
+- [x] 10 uyğunluq boşluğu müəyyən edilib.
+- [x] Fərdi məlumatların emalı prinsipləri sənədləşdirilib.
+- [x] Yekun PARTIALLY COMPLIANT nəticəsi göstərilib.
+
+### 7.4. GitHub üzrə son yoxlama
+
+Aşağıdakı əməliyyatlar repository yenilənərkən yoxlanılmalıdır:
+
+- [ ] Bütün faylların Section-15-GRC qovluğunda yerləşdiyi təsdiqlənməlidir.
+- [ ] Markdown cədvəllərinin GitHub-da düzgün göründüyü yoxlanılmalıdır.
+- [ ] README.md daxilindəki fayl keçidləri yoxlanılmalıdır.
+- [ ] Son dəyişikliklər GitHub-a commit edilməlidir.
+
+Bu dörd bənd GitHub üzərində faktiki yoxlama üçün saxlanılıb.
+
+---
+
+## 8. Yekun Verification Summary
+
+| Requirement | Documentation | Technical / Governance Follow-up |
+|---|---|---|
+| 15.1 — Security Policy Library | Hazırlanıb | Approval register |
+| 15.2 — Risk Register | Hazırlanıb | Residual risk və aylıq baxışın təsdiqi |
+| 15.3 — Standards Assessment | Hazırlanıb | Partial nəzarətlər üzrə əlavə yoxlama |
+| 15.3 — Gap Analysis | 10 boşluq sənədləşdirilib | Düzəldici tədbirlərin icrası |
+| 15.3 — Personal Data Procedures | 8 prinsip sənədləşdirilib | Data processing register |
+| 15.3 — Compliance Report | Hazırlanıb | PARTIALLY COMPLIANT |
+
+### Final Verification Result
+
+**GRC Documentation:** Prepared
+
+**Identified Risks:** 20
+
+**Security Policies:** 6
+
+**Compliance Frameworks:** 3
+
+**Identified Compliance Gaps:** 10
+
+**Overall Compliance Status:** PARTIALLY COMPLIANT
+
+Bölmə 15 çərçivəsində təhlükəsizlik siyasətləri, Risk Register və Compliance Assessment sənədləri hazırlanmışdır.
+
+Yoxlama siyahısı sənədləşdirilmiş nəticələri və əlavə tədbir tələb edən məsələləri bir-birindən ayırır.
+
+Tam uyğunluq üçün hesabatdakı 10 boşluq üzrə tədbirlərin icrası və müvafiq sübutlarla təsdiqi tələb olunur.
+
+---
+
+## 9. Əlaqəli sənədlər
+
+- [Section 15 — README](README.md)
+- [Security Policies](security-policies.md)
+- [Risk Register](risk-register.md)
+- [Compliance Assessment](compliance-assessment.md)
+
+---
+
+**Section:** 15 — Governance, Risk & Compliance
+
+**Organization:** KONRDERK Cybersecurity
+
+**Verification:** Documentation and Compliance Review
+
+**Overall Result:** PARTIALLY COMPLIANT
