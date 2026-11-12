@@ -1,390 +1,244 @@
-# BÖLMƏ 15 — GOVERNANCE, RISK & COMPLIANCE (GRC)
+# CSOC Final Project — KONRDERK Cybersecurity
 
-## 1. Ümumi məlumat
+## Enterprise Cybersecurity Operations Center
 
-Bu bölmədə KONRDERK Cybersecurity layihəsinin informasiya təhlükəsizliyinin idarə edilməsi, risklərin qiymətləndirilməsi və beynəlxalq standartlara uyğunluğunun təhlili üçün Governance, Risk & Compliance (GRC) çərçivəsi hazırlanmışdır.
+KONRDERK Cybersecurity layihəsi korporativ mühit üçün Cybersecurity Operations Center (CSOC) infrastrukturunun layihələndirilməsi, qurulması, təhlükəsizlik nəzarətlərinin tətbiqi və sənədləşdirilməsini əhatə edir.
 
-GRC yanaşması texniki təhlükəsizlik həllərini təşkilati siyasətlər, risk idarəetməsi və uyğunluq qiymətləndirməsi ilə əlaqələndirir.
+Layihədə **VMware və Microsoft Azure əsaslı hibrid infrastruktur** yanaşmasından istifadə edilmişdir.
 
-Layihənin əvvəlki bölmələrində qurulmuş Active Directory, Keycloak SSO/MFA, JumpServer PAM, Firewall, Suricata, DNS Sinkhole və backup infrastrukturu bu bölmədə idarəetmə və uyğunluq baxımından qiymətləndirilmişdir.
+İşin əsas məqsədi korporativ informasiya sistemlərini mərkəzləşdirilmiş identifikasiya, giriş nəzarəti, şəbəkə segmentasiyası, təhlükəsizlik monitorinqi, məlumatların qorunması və risk idarəetməsi prinsipləri ilə əlaqələndirməkdir.
 
-Bölmənin əsas məqsədləri:
+---
 
-- İnformasiya təhlükəsizliyi qaydalarını rəsmi siyasətlər şəklində sənədləşdirmək;
-- Korporativ sistemlər üçün riskləri müəyyənləşdirmək;
-- Riskləri ehtimal və təsir əsasında qiymətləndirmək;
-- Risklərin azaldılması tədbirlərini və məsul şəxsləri göstərmək;
-- Qalan riskləri (Residual Risk) müəyyən etmək;
-- ISO/IEC 27001:2022, NIST CSF 2.0 və CIS Controls v8.1 üzrə uyğunluq qiymətləndirməsi aparmaq;
-- Mövcud boşluqları və təkmilləşdirmə tədbirlərini müəyyənləşdirmək.
+## 1. Project Objectives — Layihənin Məqsədləri
 
-## 2. Bölmənin strukturu
+Layihənin əsas məqsədləri:
 
-| Alt bölmə | Sənəd | Məqsəd |
-|---|---|---|
-| 15.1 | Policy Library | Altı təhlükəsizlik siyasətinin hazırlanması |
-| 15.2 | Risk Register | 20 riskin qiymətləndirilməsi və azaldılması |
-| 15.3 | Compliance Assessment | Standartlar üzrə uyğunluq və gap analysis |
+- Korporativ təhlükəsizlik arxitekturasının hazırlanması;
+- İnformasiya aktivlərinin inventarlaşdırılması;
+- Şəbəkənin təhlükəsizlik zonalarına bölünməsi;
+- Active Directory infrastrukturunun qurulması;
+- Mərkəzləşdirilmiş autentifikasiya və giriş nəzarətinin tətbiqi;
+- İmtiyazlı hesabların təhlükəsiz idarə edilməsi;
+- Firewall, IDS/IPS və DNS təhlükəsizliyi nəzarətlərinin tətbiqi;
+- Korporativ email təhlükəsizliyinin təmin edilməsi;
+- Backup və bərpa mexanizmlərinin nəzərdə tutulması;
+- Təhlükəsizlik siyasətlərinin və risklərin sənədləşdirilməsi;
+- Beynəlxalq kibertəhlükəsizlik standartlarına uyğunluğun qiymətləndirilməsi.
 
-## 3. Bölmə 15.1 — Təhlükəsizlik siyasətləri
+---
 
-KONRDERK Cybersecurity üçün altı əsas informasiya təhlükəsizliyi siyasəti hazırlanmışdır.
+## 2. Infrastructure Architecture — İnfrastruktur Arxitekturası
 
-| № | Policy | Document ID |
-|---|---|---|
-| 1 | Information Security Policy | KON-GRC-POL-001 |
-| 2 | Acceptable Use Policy | KON-GRC-POL-002 |
-| 3 | Incident Response Policy | KON-GRC-POL-003 |
-| 4 | Remote Access Policy | KON-GRC-POL-004 |
-| 5 | Data Classification Policy | KON-GRC-POL-005 |
-| 6 | Password Management Policy | KON-GRC-POL-006 |
+Layihə VMware və Microsoft Azure əsaslı hibrid mühit çərçivəsində hazırlanmışdır.
 
-Siyasətlər Version 1.0 və Internal təsnifatı ilə hazırlanmışdır.
-
-Siyasətlərin sahibi Information Security Manager olaraq müəyyən edilmişdir.
-
-Sənədlərdə illik baxış dövrü və təsdiq üçün imza bölmələri nəzərdə tutulmuşdur.
-
-### 3.1. Information Security Policy
-
-Bu siyasət informasiya aktivlərinin məxfiliyini, bütövlüyünü və əlçatanlığını qorumaq üçün ümumi təhlükəsizlik tələblərini müəyyən edir.
+Arxitektura təhlükəsizlik zonalarının ayrılması və sistemlər arasında girişlərin məhdudlaşdırılması prinsiplərinə əsaslanır.
 
 Əsas istiqamətlər:
 
-- Least Privilege və RBAC;
-- Active Directory və Keycloak SSO/MFA;
-- JumpServer PAM;
-- Şəbəkə segmentasiyası və nftables Firewall;
-- Suricata IDS/IPS və DNS Sinkhole;
-- Sistemlərin yenilənməsi;
-- Audit logları və monitorinq;
-- Backup və bərpa;
-- İnsidentlərin bildirilməsi.
+- Korporativ LAN;
+- DMZ;
+- Server Zone;
+- İdentifikasiya və giriş idarəetməsi;
+- Şəbəkə təhlükəsizliyi;
+- Təhlükəsizlik monitorinqi;
+- Məlumatların qorunması və backup.
 
-### 3.2. Acceptable Use Policy
+Şəbəkə segmentasiyası və trafik nəzarəti üçün nftables Firewall qaydaları, təhlükələrin aşkarlanması üçün isə Suricata IDS/IPS və DNS Sinkhole yanaşmaları nəzərdə tutulmuşdur.
 
-Bu siyasət əməkdaşların korporativ sistemlərdən və resurslardan istifadəsini tənzimləyir.
+**Ətraflı:** [Section 01 — Architecture](Section-01-Architecture/README.md)
 
-Əsas istiqamətlər:
+---
 
-- Korporativ hesabların istifadəsi;
-- İş stansiyaları və serverlərdən məqbul istifadə;
-- Email və internet resursları;
-- İcazəsiz proqram təminatı və təhlükəli fəaliyyətlərin məhdudlaşdırılması;
-- Məlumatların qorunması;
-- Təhlükəsizlik hadisələrinin bildirilməsi.
+## 3. Identity and Access Management
 
-### 3.3. Incident Response Policy
+Korporativ identifikasiya və giriş nəzarəti üçün aşağıdakı texnologiyalardan istifadə edilmişdir.
 
-Bu siyasət təhlükəsizlik insidentlərinin müəyyənləşdirilməsi, eskalasiyası, araşdırılması və aradan qaldırılması prosesini tənzimləyir.
-
-Əsas istiqamətlər:
-
-- İnsidentin aşkarlanması;
-- Qeydiyyat və ilkin qiymətləndirmə;
-- Prioritetləşdirmə;
-- Eskalasiya;
-- Məhdudlaşdırma və aradan qaldırma;
-- Bərpa;
-- Hadisədən sonra təhlil və hesabat.
-
-### 3.4. Remote Access Policy
-
-Bu siyasət korporativ sistemlərə uzaqdan girişin təhlükəsiz idarə olunmasını müəyyən edir.
-
-Əsas istiqamətlər:
-
-- RDP və SSH girişlərinin məhdudlaşdırılması;
-- MFA və təsdiqlənmiş şifrəli bağlantılar;
-- JumpServer PAM vasitəsilə administrator girişi;
-- DC01-ə birbaşa RDP girişinin Firewall ilə məhdudlaşdırılması;
-- Administrator sessiyalarının audit qeydləri;
-- Sessiya müddəti və fəaliyyətsizlik nəzarəti;
-- Şübhəli uzaqdan giriş hadisələrinin bildirilməsi.
-
-### 3.5. Data Classification Policy
-
-Bu siyasət məlumatların həssaslıq səviyyəsinə görə təsnif edilməsini və müvafiq qaydada qorunmasını tənzimləyir.
-
-Əsas istiqamətlər:
-
-- Public;
-- Internal;
-- Confidential;
-- Restricted;
-- Məlumatlara girişin məhdudlaşdırılması;
-- Məlumatların saxlanılması və ötürülməsi;
-- Məlumatların təhlükəsiz silinməsi.
-
-### 3.6. Password Management Policy
-
-Bu siyasət istifadəçi və administrator parollarının yaradılması, istifadəsi və qorunması qaydalarını müəyyən edir.
-
-Layihədəki texniki nəzarətlərlə əlaqəsi:
-
-- Active Directory;
-- Fine-Grained Password Policies;
-- Windows LAPS;
-- MFA;
-- İmtiyazlı hesabların qorunması;
-- Parol rotasiyası və hesab kilidlənməsi.
-
-## 4. Bölmə 15.2 — Risk Register
-
-### 4.1. Məqsəd
-
-Risk Register korporativ infrastrukturun informasiya təhlükəsizliyi risklərini müəyyənləşdirmək, prioritetləşdirmək və azaltma tədbirlərini planlaşdırmaq üçün hazırlanmışdır.
-
-Hesabatda 20 riskdən ibarət risk reyestri təqdim edilmişdir.
-
-Sənəd məlumatları:
-
-| Parametr | Dəyər |
+| Technology | Purpose |
 |---|---|
-| Document ID | KON-GRC-RSK-001 |
-| Version | 1.0 |
-| Classification | Internal |
-| Owner | Information Security Manager |
-| Review | Monthly |
-| Risk sayı | 20 |
-
-### 4.2. Risk qiymətləndirmə metodologiyası
-
-Risklər iki göstərici üzrə qiymətləndirilir:
-
-- Likelihood (L) — riskin başvermə ehtimalı;
-- Impact (I) — risk baş verdikdə təsir səviyyəsi.
-
-Hər iki göstərici 1-dən 5-ə qədər qiymətləndirilir.
-
-Risk balının hesablanması:
-
-~~~text id="grc1501"
-Risk Score = Likelihood × Impact
-~~~
-
-### 4.3. Risk səviyyələri
-
-| Risk Score | Risk Level |
-|---|---|
-| 1–4 | Low |
-| 5–9 | Medium |
-| 10–16 | High |
-| 17–25 | Critical |
-
-### 4.4. Risk reyestrinin sahələri
-
-Hər risk üçün aşağıdakı məlumatlar göstərilmişdir:
-
-- Risk ID;
-- Risk və ya təsirlənən aktiv;
-- Likelihood;
-- Impact;
-- Risk Score;
-- Risk Owner;
-- Mitigation;
-- Residual Risk.
-
-### 4.5. Residual Risk
-
-Residual Risk — nəzərdə tutulan təhlükəsizlik tədbirləri tətbiq edildikdən sonra qalan riskdir.
-
-Hesabatdakı residual göstəricilər nəzarət tədbirlərinin tətbiqindən sonrakı hədəf qiymətlərdir.
-
-Bu göstəricilər bütün azaltma tədbirlərinin artıq tam icra olunduğunu bildirmir.
-
-### 4.6. Risklərin idarə edilməsi
-
-Risk Register üçün aylıq yenilənmə dövrü müəyyən edilmişdir.
-
-Yenilənmə zamanı:
-
-1. Mövcud risklərin vəziyyəti nəzərdən keçirilir.
-2. Yeni risklər müəyyənləşdirilir.
-3. Likelihood və Impact yenidən qiymətləndirilir.
-4. Mitigation tədbirlərinin vəziyyəti yoxlanılır.
-5. Residual Risk göstəriciləri yenilənir.
-6. Məsul şəxslər və prioritetlər nəzərdən keçirilir.
-
-## 5. Bölmə 15.3 — Compliance Assessment
-
-### 5.1. Məqsəd
-
-Compliance Assessment mövcud təhlükəsizlik nəzarətlərinin beynəlxalq standartlarla uyğunluğunu qiymətləndirmək və təkmilləşdirilməli istiqamətləri müəyyən etmək üçün hazırlanmışdır.
-
-Sənəd məlumatları:
-
-| Parametr | Dəyər |
-|---|---|
-| Document ID | KON-GRC-CMP-001 |
-| Version | 1.0 |
-| Classification | Internal |
-| Owner | Information Security Manager |
-| Review | Annually |
-
-### 5.2. Qiymətləndirmə çərçivələri
-
-Uyğunluq qiymətləndirməsi üç çərçivə əsasında aparılmışdır.
-
-| Standart | Əhatə dairəsi |
-|---|---|
-| ISO/IEC 27001:2022 | İnformasiya təhlükəsizliyinin idarə edilməsi və nəzarətlər |
-| NIST CSF 2.0 | Govern, Identify, Protect, Detect, Respond, Recover |
-| CIS Controls v8.1 | Praktiki kibertəhlükəsizlik nəzarətləri |
-
-### 5.3. Qiymətləndirilən infrastruktur
-
-- Active Directory;
-- Keycloak SSO və MFA;
-- JumpServer PAM;
-- nftables Firewall;
-- Suricata;
-- PostgreSQL;
-- Backup infrastrukturu.
-
-### 5.4. Uyğunluq statusları
-
-Hesabatda iki əsas qiymətləndirmə statusundan istifadə edilmişdir.
-
-| Status | İzah |
-|---|---|
-| Implemented | Texniki tətbiqi barədə məlumat mövcuddur |
-| Partial | Nəzarət qismən mövcuddur və ya tam effektivliyi təsdiqlənməyib |
-
-Bu qiymətləndirmə daxili uyğunluq analizidir və ISO/IEC 27001 sertifikatlaşdırılması hesab edilmir.
-
-## 6. ISO/IEC 27001:2022 üzrə qiymətləndirmə
-
-| Nəzarət | Sübut və infrastruktur | Status |
-|---|---|---|
-| A.5.15 — Access Control | AD, RBAC, Keycloak | Implemented |
-| A.5.17 — Authentication Information | MFA, Windows LAPS | Implemented |
-| A.8.2 — Privileged Access Rights | JumpServer PAM | Implemented |
-| A.8.13 — Information Backup | Restic, P2-Backup | Partial |
-| A.8.15 — Logging | PAM audit, sistem logları | Partial |
-| A.8.20 — Network Security | nftables, Suricata, DNS Sinkhole | Implemented |
-
-## 7. NIST CSF 2.0 üzrə qiymətləndirmə
-
-| Funksiya | Sübut | Status |
-|---|---|---|
-| Govern | GRC siyasətləri, Risk Register | Partial |
-| Identify | Aktivlər və 20 riskin qeydiyyatı | Partial |
-| Protect | MFA, PAM, Firewall, segmentasiya | Implemented |
-| Detect | Suricata, təhlükəsizlik logları | Partial |
-| Respond | Incident Response Policy | Partial |
-| Recover | Restic backup, bərpa tələbləri | Partial |
-
-## 8. CIS Controls v8.1 üzrə qiymətləndirmə
-
-| CIS Control | Sahə | Status |
-|---|---|---|
-| Controls 5–6 | Account və Access Management | Implemented |
-| Control 8 | Audit Log Management | Partial |
-| Control 11 | Data Recovery | Partial |
-| Controls 12–13 | Network Infrastructure və Monitoring | Partial |
-| Control 17 | Incident Response Management | Partial |
-
-## 9. Gap Analysis
-
-Uyğunluq qiymətləndirməsində 10 əsas boşluq müəyyən edilmişdir.
-
-| ID | Boşluq | Prioritet | Təkmilləşdirmə tədbiri | Məsul şəxs |
-|---|---|---|---|---|
-| G-01 | PAM loglarının SIEM-ə ötürülməsi tamamlanmayıb | High | Mərkəzləşdirilmiş log inteqrasiyası | SOC Lead |
-| G-02 | Backup restore testləri təsdiqlənməyib | High | Planlı bərpa sınaqları | System Admin |
-| G-03 | P2-Backup serverində backup saxlanması yoxlanılmalıdır | High | Backup job və storage yoxlaması | System Admin |
-| G-04 | PAM sessiyalarının avtomatik bağlanması yoxlanılmayıb | Medium | Session timeout testi | Security Engineer |
-| G-05 | İnsident cavab prosedurlarının praktiki sınağı tələb olunur | High | Tabletop və IR drill | SOC Lead |
-| G-06 | SIEM üzrə tam log əhatəsi təsdiqlənməyib | High | Log source inventory və coverage testi | SOC Lead |
-| G-07 | Zəifliklərin idarə edilməsi üzrə vahid hesabat tələb olunur | Medium | Periodik vulnerability assessment | Security Engineer |
-| G-08 | Backup retention və bərpa müddətləri sənədləşdirilməlidir | Medium | Retention, RPO/RTO planı | System Admin |
-| G-09 | Fərdi məlumatların emalı reyestri hazırlanmalıdır | Medium | Data processing register | GRC Lead |
-| G-10 | Siyasətlərin təsdiq və illik baxış qeydləri saxlanmalıdır | Medium | Policy approval register | GRC Lead |
-
-### 9.1. Prioritetlərin xülasəsi
-
-| Prioritet | Say |
-|---|---|
-| High | 5 |
-| Medium | 5 |
-| Ümumi | 10 |
-
-Gap Analysis mövcud texniki tətbiqlərlə sənədləşdirmə, monitorinq və təsdiq tələbləri arasındakı boşluqları göstərir.
-
-## 10. Fərdi məlumatların qorunması
-
-KONRDERK Cybersecurity üçün fərdi məlumatların emalında Azərbaycan Respublikasının Fərdi məlumatlar haqqında Qanunu və tətbiq olunduğu hallarda GDPR tələbləri nəzərə alınmışdır.
-
-Əsas prinsiplər:
-
-1. Purpose Limitation — məlumatların yalnız müəyyən edilmiş qanuni məqsədlər üçün toplanması.
-2. Data Minimization — yalnız zəruri məlumatların toplanması.
-3. Lawful Processing — emal üçün müvafiq hüquqi əsasın müəyyən edilməsi.
-4. Access Control — məlumatlara girişin RBAC və Least Privilege əsasında məhdudlaşdırılması.
-
-Bu prinsiplər Data Classification Policy və Information Security Policy ilə əlaqələndirilir.
-
-## 11. GRC və texniki təhlükəsizlik infrastrukturu
-
-| Texniki komponent | GRC baxımından rolu |
-|---|---|
-| Active Directory | Hesab və giriş nəzarəti |
-| Keycloak | SSO və MFA |
-| JumpServer PAM | İmtiyazlı giriş və sessiya auditi |
+| Active Directory | İstifadəçi, qrup və domen idarəetməsi |
+| Keycloak | Single Sign-On və Multi-Factor Authentication |
+| JumpServer PAM | İmtiyazlı girişlərin idarə edilməsi |
 | Windows LAPS | Lokal administrator parollarının idarə edilməsi |
-| nftables Firewall | Şəbəkə girişlərinin məhdudlaşdırılması |
-| Suricata | Şəbəkə təhlükələrinin aşkarlanması |
+| PKI | Sertifikat əsaslı etimad infrastrukturu |
+
+Əsas təhlükəsizlik prinsipləri:
+
+- Least Privilege;
+- Role-Based Access Control;
+- MFA;
+- İmtiyazlı girişlərin auditi;
+- Parol siyasətləri və rotasiya;
+- Mərkəzləşdirilmiş hesab idarəetməsi.
+
+**Ətraflı:** [Section 02 — Identity & Access Management](Section-02-Identity-Access-Management/README.md)
+
+---
+
+## 4. Email Security
+
+Korporativ email təhlükəsizliyi layihənin ayrıca istiqaməti kimi sənədləşdirilmişdir.
+
+Bu istiqamət aşağıdakı mövzuları əhatə edir:
+
+- Mail Server;
+- Email Security Gateway;
+- Anti-Phishing və Sandboxing;
+- Phishing Simulation;
+- SMTP Relay.
+
+Email təhlükəsizliyi yalnız mesajların ötürülməsini deyil, həmçinin phishing risklərinin azaldılmasını, təhlükəli məzmunun aşkarlanmasını və istifadəçilərin təhlükəsizlik maarifləndirilməsini də əhatə edir.
+
+Phishing simulyasiyası üçün GoPhish istifadə edilmişdir.
+
+**Ətraflı:** [Section 08 — Email Security](Section-08-Email-Security/README.md)
+
+---
+
+## 5. Governance, Risk & Compliance
+
+Layihənin Governance, Risk & Compliance (GRC) bölməsi texniki təhlükəsizlik tədbirlərini təşkilati idarəetmə, risk qiymətləndirməsi və uyğunluq analizi ilə əlaqələndirir.
+
+GRC üzrə üç əsas istiqamət sənədləşdirilmişdir.
+
+### 5.1. Security Policy Library
+
+Altı informasiya təhlükəsizliyi siyasəti hazırlanmışdır:
+
+1. Information Security Policy;
+2. Acceptable Use Policy;
+3. Incident Response Policy;
+4. Remote Access Policy;
+5. Data Classification Policy;
+6. Password Management Policy.
+
+### 5.2. Risk Register
+
+20 riskdən ibarət reyestr hazırlanmışdır.
+
+Risklər Likelihood və Impact əsasında qiymətləndirilmiş, risk sahibləri, azaltma tədbirləri və hədəf residual risklər müəyyən edilmişdir.
+
+### 5.3. Compliance Assessment
+
+Uyğunluq analizi aşağıdakı çərçivələr əsasında aparılmışdır:
+
+- ISO/IEC 27001:2022;
+- NIST Cybersecurity Framework 2.0;
+- CIS Controls v8.1.
+
+Qiymətləndirmədə 10 uyğunluq boşluğu müəyyən edilmişdir.
+
+**Overall Compliance Assessment: PARTIALLY COMPLIANT**
+
+Bu nəticə daxili uyğunluq qiymətləndirməsidir və ISO/IEC 27001 sertifikatlaşdırılması demək deyil.
+
+**Ətraflı:** [Section 15 — Governance, Risk & Compliance](Section-15-GRC/README.md)
+
+---
+
+## 6. Technologies and Security Components
+
+| Component | Security Function |
+|---|---|
+| VMware | Virtual infrastruktur |
+| Microsoft Azure | Hibrid infrastruktur komponentləri |
+| Active Directory | Identity Management |
+| Keycloak | SSO və MFA |
+| JumpServer PAM | Privileged Access Management |
+| Windows LAPS | Local Administrator Password Management |
+| PKI | Sertifikat infrastrukturu |
+| nftables | Firewall və trafik məhdudiyyətləri |
+| Suricata | IDS/IPS |
 | DNS Sinkhole | Zərərli domenlərə çıxışın məhdudlaşdırılması |
-| Restic / P2-Backup | Məlumatların ehtiyat nüsxələnməsi və bərpa planlaşdırılması |
-| GRC Policies | Təhlükəsizlik tələblərinin sənədləşdirilməsi |
-| Risk Register | Risklərin prioritetləşdirilməsi |
-| Compliance Assessment | Nəzarətlərin standartlarla müqayisəsi |
+| PostgreSQL | Məlumat bazası |
+| Restic | Backup |
+| Gitea | Git repository idarəetməsi |
+| Wiki.js | Daxili sənədləşdirmə |
+| Nextcloud | Fayl paylaşımı |
+| Grafana | Monitorinq və vizuallaşdırma |
+| GoPhish | Phishing simulyasiyası |
 
-## 12. GitHub sənəd strukturu
+Bu komponentlər layihənin müxtəlif təhlükəsizlik istiqamətləri ilə əlaqələndirilmişdir.
 
-Bu bölmənin sənədləri aşağıdakı strukturda saxlanılır:
+---
 
-~~~text id="grc1502"
-Section-15-Governance-Risk-Compliance/
-├── README.md
-├── policy-library/
-│   ├── information-security-policy.md
-│   ├── acceptable-use-policy.md
-│   ├── incident-response-policy.md
-│   ├── remote-access-policy.md
-│   ├── data-classification-policy.md
-│   └── password-management-policy.md
-├── risk-register.md
-└── compliance-assessment.md
+## 7. Repository Structure
+
+~~~text
+CSOC-Final-Project/
+├── Section-01-Architecture/
+│   ├── README.md
+│   └── ...
+├── Section-02-Identity-Access-Management/
+│   ├── README.md
+│   └── ...
+├── Section-08-Email-Security/
+│   ├── README.md
+│   └── ...
+├── Section-15-GRC/
+│   ├── README.md
+│   ├── security-policies.md
+│   ├── risk-register.md
+│   ├── compliance-assessment.md
+│   └── verification-checklist.md
+└── README.md
 ~~~
 
-## 13. Əlaqəli sənədlər
+Bu struktur hazırda GitHub-da sənədləşdirilən bölmələri göstərir.
 
-### Policy Library
+Digər layihə bölmələrinin sənədləri hazırlandıqca repository genişləndirilə bilər.
 
-- [Information Security Policy](policy-library/information-security-policy.md)
-- [Acceptable Use Policy](policy-library/acceptable-use-policy.md)
-- [Incident Response Policy](policy-library/incident-response-policy.md)
-- [Remote Access Policy](policy-library/remote-access-policy.md)
-- [Data Classification Policy](policy-library/data-classification-policy.md)
-- [Password Management Policy](policy-library/password-management-policy.md)
+---
 
-### Risk və uyğunluq
+## 8. Project Documentation
 
-- [Risk Register](risk-register.md)
-- [Compliance Assessment](compliance-assessment.md)
+| Section | Description | Documentation |
+|---|---|---|
+| 01 | Architecture, Asset Inventory, Network Segmentation, Threat Modeling | [Open](Section-01-Architecture/README.md) |
+| 02 | Active Directory, PAM, SSO/MFA, LAPS və PKI | [Open](Section-02-Identity-Access-Management/README.md) |
+| 08 | Mail Server, Email Gateway, Anti-Phishing və SMTP Relay | [Open](Section-08-Email-Security/README.md) |
+| 15 | Security Policies, Risk Register və Compliance Assessment | [Open](Section-15-GRC/README.md) |
 
-## 14. Yekun nəticə
+### Section 15 — GRC Documentation
 
-Bölmə 15 çərçivəsində KONRDERK Cybersecurity layihəsi üçün Governance, Risk & Compliance çərçivəsi hazırlanmışdır.
+- [Security Policies](Section-15-GRC/security-policies.md)
+- [Risk Register](Section-15-GRC/risk-register.md)
+- [Compliance Assessment](Section-15-GRC/compliance-assessment.md)
+- [Verification Checklist](Section-15-GRC/verification-checklist.md)
 
-Altı əsas informasiya təhlükəsizliyi siyasəti sənədləşdirilmiş, hər biri üçün sənəd identifikatoru, versiya, təsnifat, məsul şəxs, baxış dövrü və təsdiq bölməsi nəzərdə tutulmuşdur.
+---
 
-20 riskdən ibarət Risk Register hazırlanmış, risklər Likelihood və Impact göstəriciləri əsasında qiymətləndirilmiş, azaltma tədbirləri, risk sahibləri və hədəf residual risk göstəriciləri müəyyən edilmişdir.
+## 9. Security Principles
 
-ISO/IEC 27001:2022, NIST CSF 2.0 və CIS Controls v8.1 çərçivələri əsasında daxili uyğunluq qiymətləndirməsi aparılmışdır.
+Layihə aşağıdakı əsas təhlükəsizlik prinsiplərinə əsaslanır:
 
-Qiymətləndirmədə tətbiq edilmiş nəzarətlərlə yanaşı, qismən təmin edilmiş nəzarətlər də müəyyən edilmiş və 10 maddəlik Gap Analysis hazırlanmışdır.
+- **Defense in Depth:** Çoxqatlı təhlükəsizlik nəzarətləri;
+- **Least Privilege:** Minimum zəruri giriş hüquqları;
+- **RBAC:** Rol əsaslı giriş idarəetməsi;
+- **Network Segmentation:** Şəbəkə zonalarının ayrılması;
+- **Monitoring and Detection:** Təhlükəsizlik hadisələrinin izlənilməsi;
+- **Incident Response:** Hadisələrin araşdırılması və cavab tədbirləri;
+- **Backup and Recovery:** Məlumatların bərpa imkanlarının qorunması;
+- **Risk-Based Security:** Təhlükəsizlik tədbirlərinin risklərə əsasən prioritetləşdirilməsi.
 
-Beləliklə, layihənin texniki təhlükəsizlik infrastrukturu siyasət, risk və uyğunluq idarəetməsi ilə əlaqələndirilmişdir.
+---
+
+## 10. Project Conclusion — Yekun
+
+CSOC Final Project çərçivəsində KONRDERK Cybersecurity üçün hibrid korporativ kibertəhlükəsizlik infrastrukturu və onu dəstəkləyən təhlükəsizlik sənədləşməsi hazırlanmışdır.
+
+Layihə arxitektura, identifikasiya və giriş nəzarəti, email təhlükəsizliyi, monitorinq, məlumatların qorunması və GRC istiqamətlərini vahid korporativ təhlükəsizlik yanaşması çərçivəsində birləşdirir.
+
+GRC mərhələsində altı informasiya təhlükəsizliyi siyasəti, 20 riskdən ibarət Risk Register və ISO/IEC 27001:2022, NIST CSF 2.0, CIS Controls v8.1 üzrə daxili uyğunluq qiymətləndirməsi hazırlanmışdır.
+
+Uyğunluq qiymətləndirməsində müəyyən edilmiş boşluqlar gələcək düzəldici tədbirlər və əlavə yoxlamalar üçün sənədləşdirilmişdir.
+
+---
+
+**Project:** CSOC Final Project
+
+**Organization:** KONRDERK Cybersecurity
+
+**Infrastructure:** VMware / Microsoft Azure Hybrid Environment
+
+**Repository:** [ChinaraMustafayeva/CSOC-Final-Project](https://github.com/ChinaraMustafayeva/CSOC-Final-Project)
