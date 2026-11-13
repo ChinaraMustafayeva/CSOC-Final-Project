@@ -1,0 +1,12 @@
+# Mailcow configuration — sanitized excerpt
+# Source: MAIL01 /opt/mailcow-dockerized/mailcow.conf
+# Verified using read-only grep on MAIL01
+# This is a partial example, not a complete deployable configuration.
+
+MAILCOW_HOSTNAME=mail.konrderk.test
+HTTP_PORT=80
+HTTP_BIND=
+HTTPS_PORT=443
+HTTPS_BIND=
+
+# Secrets and other environment-specific settings intentionally omitted.
